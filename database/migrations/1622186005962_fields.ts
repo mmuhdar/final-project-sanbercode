@@ -5,12 +5,13 @@ export default class Fields extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments("id");
-      table.string("name");
+      table.increments("id").primary();
+      table.string("name").notNullable();
       table.enum("type", ["Futsal", "Basketball", "Volley"]);
       table
         .integer("venue_id")
         .unsigned()
+        .notNullable()
         .references("venues.id")
         .onDelete("CASCADE");
 

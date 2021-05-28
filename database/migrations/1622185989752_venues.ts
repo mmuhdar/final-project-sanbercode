@@ -6,12 +6,13 @@ export default class Venues extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id").primary();
-      table.string("name", 45);
-      table.string("phone", 45);
-      table.string("address", 45);
+      table.string("name").notNullable();
+      table.string("phone").notNullable();
+      table.string("address").notNullable();
       table
         .integer("user_id")
         .unsigned()
+        .notNullable()
         .references("users.id")
         .onDelete("CASCADE");
 

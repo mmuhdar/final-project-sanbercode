@@ -7,8 +7,7 @@ export default class Bookings extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
       table.dateTime("play_date_start");
-      table.string("play_date_end");
-
+      table.dateTime("play_date_end");
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
