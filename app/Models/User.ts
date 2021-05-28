@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import Hash from "@ioc:Adonis/Core/Hash";
 import {
   BaseModel,
   column,
@@ -6,6 +7,7 @@ import {
   HasMany,
   manyToMany,
   ManyToMany,
+  beforeSave,
 } from "@ioc:Adonis/Lucid/Orm";
 import Venue from "./Venue";
 import Booking from "./Booking";
@@ -37,4 +39,11 @@ export default class User extends BaseModel {
 
   @manyToMany(() => Booking)
   public bookings: ManyToMany<typeof Booking>;
+
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user.$dirty.password) {
+      user.password = await Hash.make(user.password);
+    }
+  }
 }

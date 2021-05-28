@@ -25,4 +25,8 @@ Route.get("/", async ({ view }) => {
 });
 
 Route.post("/users", "UsersController.register").as("users.register");
+Route.post("/users/verification", "UsersController.otpConfirmation").as(
+  "users.verification"
+);
 Route.get("/users", "UsersController.index").as("users.index");
+Route.post("/login", "UsersController.login").as("users.login");
