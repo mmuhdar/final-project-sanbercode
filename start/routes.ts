@@ -34,7 +34,11 @@ Route.get("/signup/confirmation", async ({ view }) => {
 });
 Route.resource("venues", "VenuesController")
   .apiOnly()
-  .middleware({ store: ["auth"], update: ["auth"], destroy: ["auth"] });
+  .middleware({
+    store: ["auth", "role"],
+    update: ["auth", "role"],
+    destroy: ["auth", "role"],
+  });
 
 Route.post("/venues/:id/bookings", "VenuesController.bookingVenue")
   .as("venues.booking")
@@ -50,8 +54,11 @@ Route.get("/users", "UsersController.index").as("users.index");
 Route.post("/login", "UsersController.login").as("users.login");
 
 Route.group(() => {
-  Route.get("/bookings", "BookingsController.index");
-  Route.get("/bookings/:id", "BookingsController.show");
+  Route.get("/bookings", "BookingsController.index").middleware([
+    "auth",
+    "verify",
+  ]);
+  Route.get("/bookings/:id", "BookingsController.show").middleware("verify");
   Route.post("/bookings/:id/join", "BookingsController.join").middleware(
     "auth"
   );
