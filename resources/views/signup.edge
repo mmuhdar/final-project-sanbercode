@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign in</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200">
+    <main class="h-screen flex justify-center items-center">
+        <div class="flex flex-col relative w-full m-7">
+        <div class="bg-red-500 text-white rounded-md p-5 w-full shadow-2xl mt-7">
+            <h2 class="text-2xl">Sanbercode</h2>
+            <p>Adonis</p>
+            <p class="text-xs sm:mt-32">
+                Final Project
+            </p>
+        </div>
+        <div class="sm:absolute right-12 bg-white sm:rounded-md p-2 sm:w-44 flex flex-col justify-center items-center shadow-xl">
+            <h2 class="text-red-500 mb-3 text-sm font-bold">Log in</h2>
+            <div class="bg-red-500 shadow-xl rounded-full w-12 h-12 mb-4">
+            </div>
+            <input type="text" placeholder="Enter name" class="text-xs w-full p-1 focus:outline-none border-b-2 border-grey-600 focus:border-red-500 bg-transparant mb-2">
+            <input type="text" placeholder="Enter email" class="text-xs w-full p-1 focus:outline-none border-b-2 border-grey-600 focus:border-red-500 bg-transparant mb-2">
+            <input type="text" placeholder="Enter password" class="text-xs w-full p-1 focus:outline-none border-b-2 border-grey-600 focus:border-red-500 bg-transparant">
+            <button class="bg-red-500 hover:bg-red-600 text xs text-white w-full mt-4 mb-7 focus:outline-none p-2">Sign up</button>
+            <a href="/login" class="text-red-500 mb-5 text-xs">Log in</a>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

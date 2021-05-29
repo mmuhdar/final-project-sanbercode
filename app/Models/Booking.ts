@@ -4,8 +4,11 @@ import {
   column,
   manyToMany,
   ManyToMany,
+  belongsTo,
+  BelongsTo,
 } from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
+import Field from "./Field";
 
 export default class Booking extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +28,7 @@ export default class Booking extends BaseModel {
 
   @manyToMany(() => User)
   public users: ManyToMany<typeof User>;
+
+  @belongsTo(() => Field)
+  public fields: BelongsTo<typeof Field>;
 }

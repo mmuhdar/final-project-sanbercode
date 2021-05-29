@@ -7,11 +7,17 @@ export default class Fields extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id").primary();
       table.string("name").notNullable();
-      table.enum("type", ["Futsal", "Basketball", "Volley"]);
+      table.enum("type", [
+        "soccer",
+        "minisoccer",
+        "futsal",
+        "basketball",
+        "volleybal",
+      ]);
       table
         .integer("venue_id")
         .unsigned()
-        .notNullable()
+        .nullable()
         .references("venues.id")
         .onDelete("CASCADE");
 

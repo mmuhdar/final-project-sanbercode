@@ -59,9 +59,7 @@ export default class UsersController {
       await request.validate({ schema: userSchema });
       const email = request.input("email");
       const password = request.input("password");
-      const token = await auth.use("api").attempt(email, password, {
-        expiresIn: "1hour",
-      });
+      const token = await auth.use("api").attempt(email, password);
       return response.ok({ message: "login success!", token });
     } catch (error) {
       // error for auth message
