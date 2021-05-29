@@ -24,6 +24,12 @@ Route.get("/", async ({ view }) => {
   return view.render("welcome");
 });
 
+Route.resource("venues", "VenuesController")
+  .apiOnly()
+  .middleware({ store: ["auth"], update: ["auth"], destroy: ["auth"] });
+
+Route.resource("fields", "FieldsController").apiOnly();
+
 Route.post("/users", "UsersController.register").as("users.register");
 Route.post("/users/verification", "UsersController.otpConfirmation").as(
   "users.verification"

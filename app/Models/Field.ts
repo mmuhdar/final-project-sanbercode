@@ -12,7 +12,7 @@ export default class Field extends BaseModel {
   @column()
   public type: string;
 
-  @column()
+  @column({ columnName: "venue_id" })
   public venueId: number;
 
   @column.dateTime({ autoCreate: true })
