@@ -14,7 +14,7 @@
 | and then import them inside `start/routes.ts` as follows
 |
 | import './routes/cart'
-| import './routes/customer''
+| import './routes/customer'
 |
 */
 
@@ -23,47 +23,67 @@ import Route from "@ioc:Adonis/Core/Route";
 Route.get("/", async ({ view }) => {
   return view.render("welcome");
 });
-Route.get("/login", async ({ view }) => {
-  return view.render("login");
-});
-Route.get("/signup", async ({ view }) => {
-  return view.render("signup");
-});
-Route.get("/signup/confirmation", async ({ view }) => {
-  return view.render("verification");
-});
-Route.resource("venues", "VenuesController")
-  .apiOnly()
-  .middleware({
-    store: ["auth", "role"],
-    update: ["auth", "role"],
-    destroy: ["auth", "role"],
-  });
+// Route.get("/login", async ({ view }) => {
+//   return view.render("login");
+// });
+// Route.get("/signup", async ({ view }) => {
+//   return view.render("signup");
+// });
+// Route.get("/signup/confirmation", async ({ view }) => {
+//   return view.render("verification");
+// });
+// Route.resource("venues", "VenuesController")
+//   .apiOnly()
+//   .middleware({
+//     store: ["auth", "role"],
+//     update: ["auth", "role"],
+//     destroy: ["auth", "role"],
+//   });
 
-Route.post("/venues/:id/bookings", "VenuesController.bookingVenue")
+Route.get("/api/v1/venues", "VenuesController.index")
+  .as("venues.index")
+  .middleware(["auth", "verify"]);
+Route.get("/api/v1/venues/:id", "VenuesController.show")
+  .as("venues.show")
+  .middleware(["auth", "verify"]);
+Route.post("/api/v1/venue", "VenuesController.store")
+  .as("venues.store")
+  .middleware(["auth", "role"]);
+Route.put("/api/v1/venue/:id", "VenuesController.update")
+  .as("venues.update")
+  .middleware(["auth", "role"]);
+// Route.delete("/api/v1/venues/:id", "VenuesController.destroy")
+//   .as("venues.destroy")
+//   .middleware(["auth", "role"]);
+Route.post("/api/v1/venues/:id/bookings", "VenuesController.bookingVenue")
   .as("venues.booking")
-  .middleware("auth");
+  .middleware(["auth", "verify"]);
 
 // Route.resource("fields", "FieldsController").apiOnly();
 
-Route.post("/users", "UsersController.register").as("users.register");
-Route.post("/users/verification", "UsersController.otpConfirmation").as(
-  "users.verification"
+Route.post("/api/v1/register", "UsersController.register").as("auth.register");
+Route.post("/api/v1/otp-confirmation", "UsersController.otpConfirmation").as(
+  "auth.verify"
 );
-Route.get("/users", "UsersController.index").as("users.index");
-Route.post("/login", "UsersController.login").as("users.login");
+Route.post("/api/v1/login", "UsersController.login").as("auth.login");
+// Route.get("/api/v1/users", "UsersController.index").as("users.index");
 
 Route.group(() => {
-  Route.get("/bookings", "BookingsController.index").middleware([
-    "auth",
-    "verify",
-  ]);
-  Route.get("/bookings/:id", "BookingsController.show").middleware("verify");
-  Route.post("/bookings/:id/join", "BookingsController.join").middleware(
-    "auth"
-  );
-  Route.put("/bookings/:id/unjoin", "BookingsController.unjoin").middleware(
-    "auth"
-  );
-  Route.get("/schedules", "BookingsController.schedule").middleware("auth");
-});
+  Route.group(() => {
+    Route.get("/bookings", "BookingsController.index")
+      .middleware(["auth", "verify"])
+      .as("bookings.index");
+    Route.get("/bookings/:id", "BookingsController.show")
+      .middleware(["auth", "verify"])
+      .as("bookings.show");
+    Route.post("/bookings/:id/join", "BookingsController.join")
+      .middleware(["auth", "verify"])
+      .as("bookings.join");
+    Route.put("/bookings/:id/unjoin", "BookingsController.unjoin")
+      .middleware(["auth", "verify"])
+      .as("bookings.unjoin");
+    Route.get("/schedules", "BookingsController.schedule")
+      .middleware(["auth", "verify"])
+      .as("bookings.schedule");
+  }).prefix("/v1");
+}).prefix("/api");

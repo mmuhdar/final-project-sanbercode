@@ -20,6 +20,9 @@ export default class Booking extends BaseModel {
   @column.dateTime()
   public playDateEnd?: DateTime;
 
+  @column()
+  public fieldId?: number;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

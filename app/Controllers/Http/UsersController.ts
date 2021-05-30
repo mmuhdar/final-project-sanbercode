@@ -6,6 +6,80 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import Mail from "@ioc:Adonis/Addons/Mail";
 
 export default class UsersController {
+  /**
+   * @swagger
+   * /api/v1/register:
+   *  post:
+   *    tags:
+   *      - Authentication
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/x-www-form-urlencoded:
+   *          schema:
+   *            $ref: '#definitions/User'
+   *        application/json:
+   *          schema:
+   *            $ref: '#definitions/User'
+   *    responses:
+   *      201:
+   *        description:  Success, check your email to get otp code!
+   *      422:
+   *        description:  Invalid value
+   *      400:
+   *        description:  Error
+   * /api/v1/otp-confirmation:
+   *  post:
+   *    tags:
+   *      - Authentication
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/x-www-form-urlencoded:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              email:
+   *                type: string
+   *              otp_code:
+   *                type: string
+   *            required:
+   *              - email
+   *              - otp_code
+   *    responses:
+   *      201:
+   *        description:  Success
+   *      422:
+   *        description:  Invalid value
+   *      400:
+   *        description:  Error
+   * /api/v1/login:
+   *  post:
+   *    tags:
+   *      - Authentication
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/x-www-form-urlencoded:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              email:
+   *                type: string
+   *              password:
+   *                type: string
+   *            required:
+   *              - email
+   *              - password
+   *    responses:
+   *      200:
+   *        description:  Success and get token
+   *      422:
+   *        description:  Invalid value
+   *      400:
+   *        description:  Error
+   *
+   */
   public async register({ request, response }: HttpContextContract) {
     try {
       const data = await request.validate(UserValidator);
