@@ -5,9 +5,8 @@
  * file.
  */
 
-import Env from "@ioc:Adonis/Core/Env";
-import Application from '@ioc:Adonis/Core/Application'
-import { DatabaseConfig } from "@ioc:Adonis/Lucid/Database";
+import Env from '@ioc:Adonis/Core/Env'
+import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -20,38 +19,37 @@ const databaseConfig: DatabaseConfig = {
   | file.
   |
   */
-  connection: Application.inDev ? ‘mysql’ : ‘pg’,
+  connection: Env.get('DB_CONNECTION'),
 
   connections: {
- 
     /*
     |--------------------------------------------------------------------------
-    | PostgreSQL config
+    | MySQL config
     |--------------------------------------------------------------------------
     |
-    | Configuration for PostgreSQL database. Make sure to install the driver
+    | Configuration for MySQL database. Make sure to install the driver
     | from npm when using this connection
     |
-    | npm i pg
+    | npm i mysql
     |
     */
-    pg: {
-      client: "pg",
+    mysql: {
+      client: 'mysql',
       connection: {
-        host: Env.get("PG_HOST"),
-        port: Env.get("PG_PORT"),
-        user: Env.get("PG_USER"),
-        password: Env.get("PG_PASSWORD", ""),
-        database: Env.get("PG_DB_NAME"),
+        host: Env.get('MYSQL_HOST'),
+        port: Env.get('MYSQL_PORT'),
+        user: Env.get('MYSQL_USER'),
+        password: Env.get('MYSQL_PASSWORD', ''),
+        database: Env.get('MYSQL_DB_NAME'),
       },
       migrations: {
         naturalSort: true,
       },
       healthCheck: false,
       debug: false,
-      
     },
-  },
-};
 
-export default databaseConfig;
+  }
+}
+
+export default databaseConfig
