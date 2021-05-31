@@ -10,7 +10,7 @@
 
 # 2. run $ node ace configure @adonisjs/lucid
 
-# 3. copy all this code to you .env file
+# 3. copy all this code to your .env file
 
     NODE_ENV=development
     APP_KEY=VP6FT_PZHgsIut31ZsqknpGa4p9xmc6H
@@ -30,4 +30,4 @@
 
 # 4. run this command $ node ace serve --watch
 
-# 5. You can test the API by go this link http://localhost:3333/docs or test on your postman.
+# 5. You can test the API by go to this link http://localhost:3333/docs or you can test on your postman.
